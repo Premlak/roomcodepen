@@ -63,6 +63,6 @@ io.on('connection',(socket)=>{
         socket.leave();
     })
 })
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.REACT_APP_BACKEND_URL || 3001;
 server.listen(PORT,()=>{console.log(`Port started on ${PORT}`)});
 
