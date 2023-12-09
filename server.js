@@ -2,7 +2,18 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const {Server} = require('socket.io');
-const ACTIONs = require('./src/Actions');
+const ACTIONs = {
+    JOIN: 'join',
+    JOINED: 'joined',
+    DISCONNECTED: 'disconnected',
+    HTML_CHANGE: 'html-change',
+    CSS_CHANGE: 'css-change',
+    JAVASCRIPT_CHANHE: 'javascript-change',
+    HTML_SYNC: 'html-sync',
+    CSS_SYNC: 'css-sync',
+    JAVASCRIPT_SYNC: 'javascript-sync',
+    LEAVE: 'leave'
+};
 const path = require('path');
 const server = http.Server(app);
 const io = new Server(server);
@@ -63,6 +74,9 @@ io.on('connection',(socket)=>{
         socket.leave();
     })
 })
+app.get('/',function (req,res,nxt){
+    res.sendFile(path.join(__dirname,'build','index.html'))
+});
 const PORT = process.env.REACT_APP_BACKEND_URL || 3001;
 server.listen(PORT,()=>{console.log(`Port started on ${PORT}`)});
 
